@@ -24,10 +24,10 @@
 
                 <script type="text/javascript">
                     $.ajax({
-                        url: '_twitter.html'
+                        url: '_blog.html'
                     })
                         .then(
-                            data => $('#twitter').append(data),
+                            data => $('#blog').append(data),
                             error => alert('読み込み失敗')
                         );
                 </script>
@@ -52,7 +52,7 @@
                     <div class="container">
                         <div class="row mb-5">
                             <div class="col-sm">
-                                <a class="twitter-timeline" href="https://twitter.com/kter?ref_src=twsrc%5Etfw">Tweets by kter</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+                                <a class="twitter-timeline" data-height="600" href="https://twitter.com/kter?ref_src=twsrc%5Etfw">Tweets by kter</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
                             </div>
                             <div class="col-sm">
                                 <div id="blog">
