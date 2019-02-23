@@ -1,15 +1,17 @@
 import os
-import requests
-import xml.etree.ElementTree as ET
+import feedparser
+import re
 
 BLOG_URL = os.environ.get('BLOG_URL', 'https://blog.kter.jp/feed.xml')
-xml = requests.get(BLOG_URL)
-xml_root = ET.fromstring(xml.content)
+d = feedparser.parse(BLOG_URL)
+TAG_RE = re.compile(r'<[^>]+>')
 
-#for xml_child in xml_root:
-#    print(xml_child.tag, xml_child.attrib)
-
-for xml_child in xml_root.iter('{http://www.w3.org/2005/Atom}entry'):
-    print("tag", xml_child.tag)
-    print("attrib", xml_child.attrib)
+def remove_tags(text):
+    return TAG_RE.sub('', text)
+ 
+for entry in d['entries']:
+    print("title:", entry.title)
+    print("published: ", entry.published)
+    print("link: ", entry.link)
+    print("content: ", remove_tags(entry.content[0].value)[:30])
 
