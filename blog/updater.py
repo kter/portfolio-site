@@ -16,7 +16,6 @@ for i, entry in enumerate(d['entries']):
 env = Environment(loader=FileSystemLoader('templates'))
 template = env.get_template('_blog.html.py')
 output_from_parsed_template = template.render(entries=d['entries'])
-print(output_from_parsed_template)
 
 with open("_blog.html", "w") as fh:
     fh.write(output_from_parsed_template)
