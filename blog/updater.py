@@ -2,6 +2,7 @@ import os
 import feedparser
 import re
 from jinja2 import Environment, FileSystemLoader
+import boto3
 
 BLOG_URL = os.environ.get('BLOG_URL', 'https://blog.kter.jp/feed.xml')
 d = feedparser.parse(BLOG_URL)
@@ -19,3 +20,7 @@ output_from_parsed_template = template.render(entries=d['entries'])
 
 with open("_blog.html", "w") as fh:
     fh.write(output_from_parsed_template)
+
+BUCKET_NAME = os.environ.get('BUCKET_NAME', 'kter.jp')
+s3 = boto3.resource('s3')
+s3.Bucket(BUCKET_NAME).upload_file('_blog.html', '_blog.html')

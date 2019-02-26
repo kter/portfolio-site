@@ -1,7 +1,8 @@
 FROM python:3
 
 RUN pip3 install jinja2 \
-    feedparser
+    feedparser \
+    boto3
 
 RUN mkdir /app
 WORKDIR /app
