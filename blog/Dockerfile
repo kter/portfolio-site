@@ -1,10 +1,12 @@
-# TODO SAS
 FROM python:3
+
+RUN pip3 install jinja2 \
+    feedparser \
+    boto3
 
 RUN mkdir /app
 WORKDIR /app
+COPY updater.py /app
+COPY templates /app/templates
 
-RUN pip3 install requests \
-    feedparser
-
-ENTRYPOINT [ "python3" ]
+CMD [ "python3", "updater.py" ]
