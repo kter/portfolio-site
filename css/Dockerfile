@@ -12,6 +12,4 @@ RUN apt update && \
 RUN curl -OL https://github.com/sass/dart-sass/releases/download/1.17.2/dart-sass-1.17.2-linux-x64.tar.gz && \
     tar xf dart-sass-1.17.2-linux-x64.tar.gz 
 
-COPY . /app
-
 CMD ["/bin/sh",  "/app/bootstrap.sh"]
