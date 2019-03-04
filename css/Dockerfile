@@ -10,6 +10,8 @@ RUN apt update && \
   pip install awscli
   
 RUN curl -OL https://github.com/sass/dart-sass/releases/download/1.17.2/dart-sass-1.17.2-linux-x64.tar.gz && \
-    tar xf dart-sass-1.17.2-linux-x64.tar.gz 
+    tar xf dart-sass-1.17.2-linux-x64.tar.gz && \
+    mv dart-sass /usr/local
 
-CMD ["/bin/sh",  "/app/bootstrap.sh"]
+ENTRYPOINT ["/usr/local/dart-sass/sass"]
+CMD ["/app/main.scss", "/app/main.css"]
