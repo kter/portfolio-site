@@ -5,11 +5,13 @@ from jinja2 import Environment, FileSystemLoader
 import boto3
 
 GITHUB_URL = os.environ.get('GITHUB_URL', 'https://api.github.com/users/kter/repos')
+DISPLAY_LIMIT = 5
 r = requests.get(GITHUB_URL)
 content = r.json()
 
 content.sort(key=lambda x: x['updated_at'], reverse=True)
 
+del content[DISPLAY_LIMIT:]
 
 for i, entry in enumerate(content):
    content[i]['short_description'] = entry['description'][:30] if entry['description'] else 'No Description Provided'

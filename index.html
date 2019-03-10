@@ -27,10 +27,19 @@
 
                 <script type="text/javascript">
                     $.ajax({
-                        url: 'blog/_blog.html'
+                        url: '_blog.html'
                     })
                         .then(
                             data => $('#blog').append(data),
+                            error => alert('読み込み失敗')
+                        );
+                </script>
+                <script type="text/javascript">
+                    $.ajax({
+                        url: '_github.html'
+                    })
+                        .then(
+                            data => $('#github').append(data),
                             error => alert('読み込み失敗')
                         );
                 </script>
