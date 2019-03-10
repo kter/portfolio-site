@@ -19,7 +19,8 @@ template = env.get_template('_github.html.py')
 output_from_parsed_template = template.render(entries=content)
 
 with open("_github.html", "w") as fh:
-    fh.write(output_from_parsed_template.encode('utf-8'))
+    fh.write(output_from_parsed_template)
+    # fh.write(output_from_parsed_template.encode('utf-8'))
 
 BUCKET_NAME = os.environ.get('BUCKET_NAME', 'tomohiko.io')
 s3 = boto3.resource('s3')
