@@ -1,7 +1,7 @@
 FROM python:3.7.2-alpine3.9
 
 RUN pip3 install jinja2 \
-    feedparser \
+    requests \
     boto3
 
 RUN mkdir /app
