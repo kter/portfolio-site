@@ -4,7 +4,7 @@ import requests
 from jinja2 import Environment, FileSystemLoader
 import boto3
 
-GITHUB_URL = os.environ.get('GITHUB_URL', 'https://api.github.com/users/kter/repos')
+GITHUB_URL = os.environ.get('GITHUB_URL', 'https://api.github.com/users/kter/repos?per_page=200')
 DISPLAY_LIMIT = 5
 r = requests.get(GITHUB_URL)
 content = r.json()
