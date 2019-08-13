@@ -13,34 +13,6 @@
     <link rel="stylesheet" href="main.css"
         crossorigin="anonymous">
 
-                <script type="text/javascript">
-                  const base_url ='https://api.github.com/users/kter/repos';
-                  const params = '?sort=updated&direction=desc';
-                  const github_url = base_url + params;
-                  const display_limit = 5;
-                  const description_limit = 30;
-                  let template_param = {description: []};
-
-                  fetch(github_url)
-                    .then(function(response) {
-                      return response.json()
-                    })
-                    .then(function(json_response) {
-                      repository_datas = json_response.slice(0, display_limit);
-                      for (repository_data of repository_datas) {
-                        if (repository_data['description']) {
-                          template_param.description.push(repository_data['description'].slice(0, description_limit));
-                        } else {
-                          template_param.description.push('No Description Provided.');
-                        }
-                      }
-                      console.log(template_param);
-
-                    });
-
-                  // template
-                  // append
-                </script>
                 
                 <title>ポートフォリオサイト</title>
                 </head>
@@ -74,6 +46,55 @@
                             </div>
                         </div>
                     </div>
+
+
+                    <template id="github_feed">
+                      <div class="row">
+                        <ol class="zens">
+                          <li>
+                            <span id="title" class="title"></span>
+                            <span id="description" class="content"><a id="url" href=""> ... show more</a></span>
+                            <span id="language" class="timestamp"></span>
+                            <span id="updated_at" class="timestamp"></span>
+                          </li>
+                        </ol>
+                        <br>
+                      </div>
+                    </template>
+
+                <script type="text/javascript">
+                  const base_url ='https://api.github.com/users/kter/repos';
+                  const params = '?sort=updated&direction=desc';
+                  const github_url = base_url + params;
+                  const display_limit = 5;
+                  const description_limit = 30;
+
+                  fetch(github_url)
+                    .then(function(response) {
+                      return response.json()
+                    })
+                    .then(function(json_response) {
+                      repository_datas = json_response.slice(0, display_limit);
+                      for (repository_data of repository_datas) {
+                        description = repository_data['description'] ? repository_data['description'].slice(0, description_limit) : 'No Description Provided.';
+
+                        var template = document.querySelector('#github_feed');
+                        var target = document.querySelector("#github");
+
+                        var clone = document.importNode(template.content, true);
+
+                        element = clone.querySelectorAll("span");
+                        element[0].textContent = description;
+                        element[1].textContent = repository_data['name'];
+                        element[2].textContent = repository_data['language'];
+                        element[2].textContent = repository_data['updated_at'];
+                    
+                        target.appendChild(clone);
+                      console.log(repository_data);
+                      }
+
+                    });
+                </script>
                 
                 </body>
                 
