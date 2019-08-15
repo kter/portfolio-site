@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-    <link rel="stylesheet" href="main.css"
+    <link rel="stylesheet" href="css/main.css"
         crossorigin="anonymous">
 
                 
@@ -84,13 +84,13 @@
                         var clone = document.importNode(template.content, true);
 
                         element = clone.querySelectorAll("span");
-                        element[0].textContent = description;
-                        element[1].textContent = repository_data['name'];
+                        element[0].textContent = repository_data['name'];
+                        element[1].textContent = description;
                         element[2].textContent = repository_data['language'];
-                        element[2].textContent = repository_data['updated_at'];
+                        element[3].textContent = repository_data['updated_at'];
                     
                         target.appendChild(clone);
-                      console.log(repository_data);
+                      console.log(element);
                       }
 
                     });
