@@ -51,12 +51,14 @@
                     <template id="github_feed">
                       <div class="row">
                         <ol class="zens">
-                          <li>
-                            <span id="title" class="title"></span>
-                            <span id="description" class="content"><a id="url" href=""> ... show more</a></span>
-                            <span id="language" class="timestamp"></span>
-                            <span id="updated_at" class="timestamp"></span>
-                          </li>
+                          <a id="url" href="">
+                            <li>
+                              <span id="title" class="title"></span>
+                              <span id="description" class="content"></span>
+                              <span id="language" class="timestamp"></span>
+                              <span id="updated_at" class="timestamp"></span>
+                            </li>
+                          </a>
                         </ol>
                         <br>
                       </div>
@@ -84,13 +86,16 @@
                         var clone = document.importNode(template.content, true);
 
                         element = clone.querySelectorAll("span");
+                        // TODO: id selectorに変更する
                         element[0].textContent = repository_data['name'];
                         element[1].textContent = description;
                         element[2].textContent = repository_data['language'];
                         element[3].textContent = repository_data['updated_at'];
                     
+                        url_element = clone.querySelectorAll("#url");
+                        url_element[0].href = repository_data['html_url'];
+
                         target.appendChild(clone);
-                      console.log(element);
                       }
 
                     });
