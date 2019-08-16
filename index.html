@@ -80,17 +80,21 @@
                       for (repository_data of repository_datas) {
                         description = repository_data['description'] ? repository_data['description'].slice(0, description_limit) : 'No Description Provided.';
 
-                        var template = document.querySelector('#github_feed');
-                        var target = document.querySelector("#github");
+                        let template = document.querySelector('#github_feed');
+                        let target = document.querySelector("#github");
+                        let clone = document.importNode(template.content, true);
 
-                        var clone = document.importNode(template.content, true);
+                        title_element = clone.querySelectorAll("#title");
+                        title_element[0].textContent = repository_data['name'];
 
-                        element = clone.querySelectorAll("span");
-                        // TODO: id selectorに変更する
-                        element[0].textContent = repository_data['name'];
-                        element[1].textContent = description;
-                        element[2].textContent = repository_data['language'];
-                        element[3].textContent = repository_data['updated_at'];
+                        description_element = clone.querySelectorAll("#description");
+                        description_element[0].textContent = description;
+
+                        language_element = clone.querySelectorAll("#language");
+                        language_element[0].textContent = repository_data['language'];
+
+                        updated_at_element = clone.querySelectorAll("#updated_at");
+                        updated_at_element[0].textContent = repository_data['updated_at'];
                     
                         url_element = clone.querySelectorAll("#url");
                         url_element[0].href = repository_data['html_url'];
