@@ -10,39 +10,9 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-    <link rel="stylesheet" href="main.css"
+    <link rel="stylesheet" href="css/main.css"
         crossorigin="anonymous">
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
-        integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT"
-        crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-        crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-        crossorigin="anonymous"></script>
-
-                <script type="text/javascript">
-                    $.ajax({
-                        url: '_blog.html'
-                    })
-                        .then(
-                            data => $('#blog').append(data),
-                            error => alert('読み込み失敗')
-                        );
-                </script>
-                <script type="text/javascript">
-                    $.ajax({
-                        url: '_github.html'
-                    })
-                        .then(
-                            data => $('#github').append(data),
-                            error => alert('読み込み失敗')
-                        );
-                </script>
                 
                 <title>ポートフォリオサイト</title>
                 </head>
@@ -53,7 +23,7 @@
                             <div class="col-sm">
                                 <h1>はじめまして</h1>
                                 <br />
-                                ここはインフラエンジニアの高橋智彦のポートフォリオサイトです。<br />
+                                ここはソフトウェアエンジニアの高橋智彦のポートフォリオサイトです。<br />
                                 <br />
                                 <a href="portfolio.md">職務経歴書を見る</a><br />
                                 このサイトがどうやって動いているのか見る (Slideshareへのリンク)<br />
@@ -76,6 +46,64 @@
                             </div>
                         </div>
                     </div>
+
+
+                    <template id="github_feed">
+                      <div class="row">
+                        <ol class="feed">
+                          <a id="url" href="">
+                            <li>
+                              <span id="title" class="title"></span>
+                              <span id="description" class="content"></span>
+                              <span id="language" class="timestamp"></span>
+                              <span id="updated_at" class="timestamp"></span>
+                            </li>
+                          </a>
+                        </ol>
+                        <br>
+                      </div>
+                    </template>
+
+                <script type="text/javascript">
+                  const base_url ='https://api.github.com/users/kter/repos';
+                  const params = '?sort=updated&direction=desc';
+                  const github_url = base_url + params;
+                  const display_limit = 5;
+                  const description_limit = 30;
+
+                  fetch(github_url)
+                    .then(function(response) {
+                      return response.json()
+                    })
+                    .then(function(json_response) {
+                      repository_datas = json_response.slice(0, display_limit);
+                      for (repository_data of repository_datas) {
+                        description = repository_data['description'] ? repository_data['description'].slice(0, description_limit) : 'No Description Provided.';
+
+                        let template = document.querySelector('#github_feed');
+                        let target = document.querySelector("#github");
+                        let clone = document.importNode(template.content, true);
+
+                        title_element = clone.querySelectorAll("#title");
+                        title_element[0].textContent = repository_data['name'];
+
+                        description_element = clone.querySelectorAll("#description");
+                        description_element[0].textContent = description;
+
+                        language_element = clone.querySelectorAll("#language");
+                        language_element[0].textContent = repository_data['language'];
+
+                        updated_at_element = clone.querySelectorAll("#updated_at");
+                        updated_at_element[0].textContent = repository_data['updated_at'];
+                    
+                        url_element = clone.querySelectorAll("#url");
+                        url_element[0].href = repository_data['html_url'];
+
+                        target.appendChild(clone);
+                      }
+
+                    });
+                </script>
                 
                 </body>
                 
