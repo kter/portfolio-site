@@ -120,7 +120,7 @@
 
                 <script type="text/javascript">
                   const blog_base_url ='https://blog.tomohiko.io';
-                  const feed_path = '/feed.xml';
+                  const feed_path = '/index.xml';
                   const blog_url = blog_base_url + feed_path;
                   const blog_display_limit = 5;
                   const blog_description_limit = 50;
@@ -135,7 +135,7 @@
 
                       let i;
                       for (i = 0; i <= blog_display_limit; i++) {
-                        let entry = xmlData.querySelectorAll('entry')[i];
+                        let entry = xmlData.querySelectorAll('channel item')[i];
                         let template = document.querySelector('#blog_feed');
                         let target = document.querySelector("#blog");
                         let clone = document.importNode(template.content, true);
@@ -144,10 +144,10 @@
                         title_element[0].textContent = entry.querySelector('title').textContent;
 
                         description_element = clone.querySelectorAll("#content");
-                        description_element[0].textContent = entry.querySelector('content').textContent.replace(/(<([^>]+)>)/ig,"").slice(0, blog_description_limit);
+                        description_element[0].textContent = entry.querySelector('description').textContent.replace(/(<([^>]+)>)/ig,"").slice(0, blog_description_limit);
 
                         published_element = clone.querySelectorAll("#published");
-                        published_element[0].textContent = entry.querySelector('published').textContent;
+                        published_element[0].textContent = entry.querySelector('pubDate').textContent;
                     
                         url_element = clone.querySelectorAll("#url");
                         url_element[0].href = blog_base_url + entry.querySelector('link').getAttribute('href');
